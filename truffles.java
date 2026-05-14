@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -55,6 +56,19 @@ public class truffles {
 
     /* Takes the given field ints as an input, returns the optimal traversal of the field */
     public static int[] optimalField(int[][] field) {
+        List<int[]> fieldAL = new ArrayList<>();
+        // turn field into Arraylist of int arrays
+        fieldAL.addAll(Arrays.asList(field));
+        int rowLength = fieldAL.get(0).length;
+        // until fieldAL is only one row, remove rows after adding the best traversal to each row
+        while(fieldAL.size() > 1) {
+            int currRow = fieldAL.size() - 2;
+            // maybe add currRow as a param to findBestDown?
+            for(int i = 0; i < rowLength; i++) {
+                int[] bestDownI = findBestDown(fieldAL, i);
+
+            }
+        }
         
         return null;
     }
@@ -64,7 +78,7 @@ public class truffles {
     Returns int array. First entry is the value  of the cell after choosing next best spot to go to.
     The second entry is the index of the bottom cell chosen for max value.*/
     // NOTE: may need to b echanged for logistics in optimalField
-    private static int[] findBestDown (ArrayList<int[]> currField, int index) {
+    private static int[] findBestDown (List<int[]> currField, int index) {
         // declare variables
         int currRow = currField.size() - 2;
         int currCell = currField.get(currRow)[index];
