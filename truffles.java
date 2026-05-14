@@ -18,12 +18,14 @@ public class truffles {
                         String input = sc.nextLine().strip();
                         lineStrings.add(input);
                     }
+
+                    //change this: not guaranteed to be square
                     int[][] field = new int[lineStrings.size()][lineStrings.get(0).split(" ").length]; /// kinda messy, may replace for readability
 
                     // get each number, convert it to an int, and store it in a 2D int array
                     for(int i = 0; i < lineStrings.size(); i++) {
                         String line = lineStrings.get(i);
-                        String[] numStrings = line.split(" ");
+                        String[] numStrings = line.split(" "); // CRITICAL: SPLIT ON \t EVENTUALLY
                         for(int j = 0; j < numStrings.length; j++) {
                             field[i][j] = Integer.parseInt(numStrings[j]);
                         }
