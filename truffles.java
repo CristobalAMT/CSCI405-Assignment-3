@@ -52,4 +52,41 @@ public class truffles {
             System.out.println("ERROR: No file given");
         }
     }
+
+    /* Takes the given field ints as an input, returns the optimal traversal of the field */
+    public static int[] optimalField(int[][] field) {
+        
+        return null;
+    }
+
+    /* Helper method for optimalField
+    Returns best cell to go down to from current location. 
+    Returns int array. First entry is the value  of the cell after choosing next best spot to go to.
+    The second entry is the index of the bottom cell chosen for max value.*/
+    // NOTE: may need to b echanged for logistics in optimalField
+    private static int[] findBestDown (ArrayList<int[]> currField, int index) {
+        // declare variables
+        int currRow = currField.size() - 2;
+        int currCell = currField.get(currRow)[index];
+        int biggestVal = -1;
+        int biggestValIndex = -1;
+        int startLoop = -1;
+        int endLoop = 2;
+        // if current cell is on the very left
+        if(index == 0) {
+            startLoop = 0;
+        }
+        // if current cell is on the very right
+        else if(index == currField.get(currRow).length - 1) {
+            endLoop = 1;
+        }
+        // go thru down left, down middle, and down right cells to find biggest
+        for(int i = startLoop; i < endLoop; i++) {
+            if(currField.get(currRow + 1)[index + i] > biggestVal) {
+                biggestVal = currField.get(currRow + 1)[index + i];
+                biggestValIndex = index + i;
+            }
+        }
+        return new int[]{currCell + biggestVal, biggestValIndex};
+    }
 }
