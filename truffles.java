@@ -60,14 +60,22 @@ public class truffles {
         // turn field into Arraylist of int arrays
         fieldAL.addAll(Arrays.asList(field));
         int rowLength = fieldAL.get(0).length;
+        
+        // bestPaths will hold the best path to take from each cell in the field
+        int[][] bestPaths = new int[fieldAL.size()][rowLength];
+        for(int i = 0; i < bestPaths[0].length; i++) {
+            bestPaths[bestPaths.length - 1][i] = i; // assign each cell at the very bottom row to i since it can't go down to anything
+        }
         // until fieldAL is only one row, remove rows after adding the best traversal to each row
         while(fieldAL.size() > 1) {
             int currRow = fieldAL.size() - 2;
             // maybe add currRow as a param to findBestDown?
             for(int i = 0; i < rowLength; i++) {
-                int[] bestDownI = findBestDown(fieldAL, i);
-
+                int[] bestDown = findBestDown(fieldAL, i);
+                bestPaths[currRow][i] = bestDown[1]; // assign the best path to the current cell
+                fieldAL.get(currRow)[i] = bestDown[0];
             }
+            fieldAL.remove(fieldAL.size() - 1);
         }
         
         return null;
