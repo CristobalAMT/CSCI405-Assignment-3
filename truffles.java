@@ -39,6 +39,8 @@ public class truffles {
                         }
                         System.out.println();
                     }
+
+                    
                     
                 }
                 catch (FileNotFoundException e) {
@@ -73,12 +75,21 @@ public class truffles {
             for(int i = 0; i < rowLength; i++) {
                 int[] bestDown = findBestDown(fieldAL, i);
                 bestPaths[currRow][i] = bestDown[1]; // assign the best path to the current cell
-                fieldAL.get(currRow)[i] = bestDown[0];
+                fieldAL.get(currRow)[i] = bestDown[0]; // will this work?
             }
             fieldAL.remove(fieldAL.size() - 1);
         }
         
-        return null;
+        // now, find the best route from the top row
+        int largestTopNum = -1;
+        int largestTopNumIndex = -1;
+        for(int num : fieldAL.get(0)) {
+            if(num > largestTopNum) {
+                largestTopNum = num;
+                largestTopNumIndex = num;
+            }            
+        }
+        return bestPaths[largestTopNumIndex];
     }
 
     /* Helper method for optimalField
