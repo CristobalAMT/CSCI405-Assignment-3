@@ -39,9 +39,6 @@ public class truffles {
                         }
                         System.out.println();
                     }
-
-                    
-                    
                 }
                 catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -83,11 +80,11 @@ public class truffles {
         // now, find the best route from the top row
         int largestTopNum = -1;
         int largestTopNumIndex = -1;
-        for(int num : fieldAL.get(0)) {
-            if(num > largestTopNum) {
-                largestTopNum = num;
-                largestTopNumIndex = num;
-            }            
+        for(int i = 0; i < fieldAL.get(0).length; i++) {
+            if(fieldAL.get(0)[i] > largestTopNum) {
+                largestTopNum = fieldAL.get(0)[i];
+                largestTopNumIndex = i;
+            }
         }
         return bestPaths[largestTopNumIndex];
     }
