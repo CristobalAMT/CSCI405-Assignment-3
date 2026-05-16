@@ -39,6 +39,19 @@ public class truffles {
                         }
                         System.out.println();
                     }
+
+                    // get the optimal path for this field
+                    int[] optimalPath = optimalField(field);
+                    int mostTruffles = 0; // will store the number of truffles someone can get by following the optimal path
+
+                    // Print the path on field
+                    // TODO: I have ended up mutating the arrays from field in optimalField. Should be fixable with a clone
+                    for(int i = 0; i < optimalPath.length; i++) {
+                        System.out.println("[" + i + ", " + optimalPath[i] + "] - " + field[i][optimalPath[i]]);
+                        mostTruffles += field[i][optimalPath[i]];
+                    }
+                    System.out.println(mostTruffles + " truffles"); // print the optimal truffle number
+
                 }
                 catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -86,7 +99,14 @@ public class truffles {
                 largestTopNumIndex = i;
             }
         }
-        return bestPaths[largestTopNumIndex];
+        // using the biggest top number, trace the optimal path on bestPaths
+        int[] optimalPath = new int[field.length];
+        optimalPath[0] = largestTopNumIndex;
+        for(int i = 1; i < optimalPath.length; i++) {
+            optimalPath[i] = bestPaths[i - 1][optimalPath[i - 1]];
+        }
+
+        return optimalPath;
     }
 
     /* Helper method for optimalField
